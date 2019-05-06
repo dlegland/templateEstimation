@@ -195,23 +195,49 @@ key "Grenander_Miller_1998_QAM"
 .
 \end_layout
 
+\begin_layout Standard
+Useful information about registration can also be found in the documention
+ of the ITK library.
+ In particular, several points need attention:
+\end_layout
+
+\begin_layout Itemize
+the type of deformation one wants to consider
+\end_layout
+
+\begin_layout Itemize
+the type of metric used to compare objects
+\end_layout
+
+\begin_layout Itemize
+the numerical scheme for solving the problem, using optimisation or minimisation
+ of a functional.
+\end_layout
+
 \begin_layout Chapter
 State of the art
 \end_layout
 
 \begin_layout Section
-Cootes approach
+Landmark-based registration
 \end_layout
 
 \begin_layout Standard
-Landmark based: 
+Most works on template construction are historically based on the manual
+ determination of landmarks 
 \begin_inset CommandInset citation
-LatexCommand citet
-key "Cootes_1992_bmvc"
+LatexCommand citep
+key "Cootes_1992_bmvc,Dryden1998"
 
 \end_inset
 
 .
+ This approach suffers some drawbacks, notably the difficulty to precisely
+ define the landmarks, and the need to interpolate between the landmarks
+ (notion of semi-landmarks).
+ The landmark are most of the time manually located, making this approach
+ very time-consuming and error-prone for 3D structures or images.
+ 
 \end_layout
 
 \begin_layout Section
@@ -220,6 +246,12 @@ Large deformation diffeomorphisms
 
 \begin_layout Standard
 Based on the works of Joshi, Miller, Christensen...
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Christensen_1996_TIP,Joshi_Miller_2000_TIP"
+
+\end_inset
+
  The theoretical background can be found in 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -232,24 +264,51 @@ key "Miller_Younes_2001_IJCV"
 \end_layout
 
 \begin_layout Standard
-Applications to atlas computation from collections of images .
- Application to distributions gives more flexiility in the sense we less
- depend on the representation of the data 
+Applications to atlas computation from collections of images: 
 \begin_inset CommandInset citation
-LatexCommand citep
-key "Glaunes_2004_CVPR"
+LatexCommand citet
+key "Avants_Gee_2004_NeuroImage"
 
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Section
+Metric for unlabeled point sets
+\end_layout
+
+\begin_layout Standard
+A critical point is to compute a distance between two objects, in particular
+ for minimizing the distance between a template and an individual shape
+ after transformation.
+\end_layout
+
+\begin_layout Standard
+In image-based registration, the intensities of the images are directly
+ compared.
+ In the landmark-based approach, the question is simplified in the sense
+ we need to compute distances between points.
+ If we want to remove the necessity of homology between the points, the
+ questions becomes more complicated.
+\end_layout
+
+\begin_layout Subsection
 Currents
 \end_layout
 
 \begin_layout Standard
-Extension of the work on diffeomorphisms applied to distributions.
+The notion of current is an extension of the work on diffeomorphisms applied
+ to distributions.
+ Application to distributions gives more flexibility in the sense we less
+ depend on the representation of the data 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Glaunes_2004_CVPR,Glaunes_Joshi_2006_MICCAI"
+
+\end_inset
+
+.
  Theoretical framework is provided by 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -273,8 +332,22 @@ Currents are an appropriate choice for representations of 3D surfaces because
  they inherit natural transformation properties from differential forms.
 \end_layout
 
+\begin_layout Subsection
+Varifolds
+\end_layout
+
 \begin_layout Standard
-(Not sure if this is different from LDD approach)
+A subsequent approach is based on the notion of varifold 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Durrleman_2014_NeuroImage"
+
+\end_inset
+
+.
+ The main difference is that the direction of the normals is not taken into
+ account any more.
+ This seems to facilitate the registration.
 \end_layout
 
 \begin_layout Section
@@ -282,7 +355,7 @@ Other approaches
 \end_layout
 
 \begin_layout Standard
-The works of Basel 
+The works of Basel's school consider Gaussian Models 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Luthi_2017_pami"
@@ -290,6 +363,7 @@ key "Luthi_2017_pami"
 \end_inset
 
 .
+ A dimensionality reduction is necessary to avoid over fitting.
 \end_layout
 
 \begin_layout Chapter
