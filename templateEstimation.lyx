@@ -199,6 +199,12 @@ key "Grenander_Miller_1998_QAM"
 \end_layout
 
 \begin_layout Standard
+These notes target different domains: image registration, shape models,
+ statistical shape analysis, template estimation...
+ (A set of definitions would be useful...).
+\end_layout
+
+\begin_layout Standard
 We can use the definition of shape proposed by 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -226,9 +232,103 @@ Note that in many cases, it is not desirable to remove the scaling effect,
  that may be related to growth for instance.
 \end_layout
 
+\begin_layout Chapter
+State of the art
+\end_layout
+
+\begin_layout Section
+Shape analysis using landmarks
+\end_layout
+
 \begin_layout Standard
-Useful information about registration can also be found in the documention
- of the ITK library 
+Most works on template construction are historically based on the manual
+ determination of landmarks 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Bookstein_1991_book,Cootes_1992_bmvc"
+
+\end_inset
+
+.
+ For the use of landmarks as basis of a statistical shape model, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Cootes_1992_bmvc"
+
+\end_inset
+
+ have coined the term 
+\begin_inset Quotes eld
+\end_inset
+
+Point Distribution Model
+\begin_inset Quotes erd
+\end_inset
+
+ (PDMs), which is often used synonymously to landmarks.
+ A good overview on statistical shape analysis is provided by the book of
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Dryden1998"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+After alignment of the individual models, a dimensionality reduction is
+ performed, ususally via a Principal Components Analysis (PCA) 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Jolliffe2002"
+
+\end_inset
+
+.
+ The eigen vectors are then interpreted in terms of principal modes of variation
+ around the mean shape.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Heimann_Meinzer_2009_MIA"
+
+\end_inset
+
+ provide a review of statistical shape models for 3D (medical) image segmentatio
+n.
+\end_layout
+
+\begin_layout Standard
+This approach suffers some drawbacks, notably the difficulty to precisely
+ define the landmarks, and the need to interpolate between the landmarks
+ (notion of semi-landmarks).
+ The landmark are most of the time manually located, making this approach
+ very time-consuming and error-prone for 3D structures or images.
+ It is possible to propagate landmarks from existing models 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Frangi_2002_TMI"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Image registration and atlas creation
+\end_layout
+
+\begin_layout Subsection
+Image registration
+\end_layout
+
+\begin_layout Standard
+Useful information about registration can be found in the documention of
+ the ITK library 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Ibanez2003"
@@ -248,48 +348,11 @@ the type of metric used to compare objects
 \end_layout
 
 \begin_layout Itemize
-the numerical scheme for solving the problem, using optimisation or minimisation
- of a functional.
+the numerical scheme for solving the problem, using (mathematical) optimisation
+ or minimisation of a functional.
 \end_layout
 
-\begin_layout Chapter
-State of the art
-\end_layout
-
-\begin_layout Section
-Landmark-based registration
-\end_layout
-
-\begin_layout Standard
-Most works on template construction are historically based on the manual
- determination of landmarks 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Bookstein_1991_book,Cootes_1992_bmvc"
-
-\end_inset
-
-.
- A good overview is provided by the book of 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Dryden1998"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-This approach suffers some drawbacks, notably the difficulty to precisely
- define the landmarks, and the need to interpolate between the landmarks
- (notion of semi-landmarks).
- The landmark are most of the time manually located, making this approach
- very time-consuming and error-prone for 3D structures or images.
- 
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Large deformation diffeomorphisms
 \end_layout
 
@@ -324,18 +387,23 @@ key "Avants_Gee_2004_NeuroImage"
 \end_layout
 
 \begin_layout Section
-Metric for unlabeled point sets
+Geometric templates
 \end_layout
 
 \begin_layout Standard
-A critical point is to compute a distance between two objects, in particular
+The large deformation diffeomorphism framework originally devoted to atlas
+ creation using 2D/3D grayscale images was later extended to manage geometric
+ models such as point clouds or meshes.
+ A critical point is to compute a distance between two objects, in particular
  for minimizing the distance between a template and an individual shape
  after transformation.
 \end_layout
 
 \begin_layout Standard
-In image-based registration, the intensities of the images are directly
- compared.
+In image-based registration, the metric is computed from the intensities
+ (i.e.
+ cross-correlation, mutual information...) or from the difference of label
+ regions (dice coefficient, kappa-statistics...) of the two images.
  In the landmark-based approach, the question is simplified in the sense
  we need to compute distances between points.
  If we want to remove the necessity of homology between the points, the
@@ -343,6 +411,10 @@ In image-based registration, the intensities of the images are directly
 \end_layout
 
 \begin_layout Subsection
+Metric for unlabeled point sets
+\end_layout
+
+\begin_layout Subsubsection
 Currents
 \end_layout
 
@@ -381,7 +453,7 @@ Currents are an appropriate choice for representations of 3D surfaces because
  they inherit natural transformation properties from differential forms.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Varifolds
 \end_layout
 
@@ -401,11 +473,6 @@ key "Durrleman_2014_NeuroImage"
 
 \begin_layout Section
 Other approaches
-\end_layout
-
-\begin_layout Standard
-Some authors consider Fourier decomposition of 2D contours, or spherical
- harmonics for 3D surfaces homotopic to a sphere.
 \end_layout
 
 \begin_layout Standard
@@ -437,11 +504,125 @@ key "Chitwood2012,Biot_2016_Dev"
 \end_layout
 
 \begin_layout Chapter
-Theoretical framework
+Shape representations
 \end_layout
 
 \begin_layout Standard
-TODO...
+Several possibilities exist for representing shapes.
+ This chapter tries to sketch a representative list.
+\end_layout
+
+\begin_layout Section
+Point clouds
+\end_layout
+
+\begin_layout Standard
+The simplest and the most generic method to represent shapes is a set of
+ points distributed across the boundary.
+ Such boundary points can be extracted after image segmentation algorithms
+ or using algorithms such as the Marching Cubes.
+ The shapes can be called point sets, point clouds...
+ 
+\end_layout
+
+\begin_layout Section
+Landmarks
+\end_layout
+
+\begin_layout Standard
+Most works on template construction are historically based on the manual
+ determination of landmarks 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Bookstein_1991_book,Cootes_1992_bmvc"
+
+\end_inset
+
+.
+ For the use of landmarks as basis of a statistical shape model, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Cootes_1992_bmvc"
+
+\end_inset
+
+ have coind the term 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Point Distribution Models
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ (PDMs), which is often used synonymously to landmarks.
+ 
+\end_layout
+
+\begin_layout Section
+Polygons and meshes
+\end_layout
+
+\begin_layout Standard
+It may be desirable to consider also the connectivity between the points.
+ In 2D, connectivity can be represented by ordered list of vertices, resulting
+ in polygons or polylines.
+ In 3D, connectivity is often represented by a set of polygonal faces, usually
+ triangular.
+ This results on polygonal or triangular meshes.
+\end_layout
+
+\begin_layout Section
+Other representations
+\end_layout
+
+\begin_layout Standard
+Medial axes or skeleton can be used to represent shapes.
+ Their manipulation is however not easy.
+\end_layout
+
+\begin_layout Subsection
+Fourier decomposition
+\end_layout
+
+\begin_layout Standard
+Some authors consider Fourier decomposition of 2D contours
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kuhl_Giardina_1982_CGIP,Chitwood2012"
+
+\end_inset
+
+, or spherical harmonics (
+\begin_inset Quotes eld
+\end_inset
+
+SPHARMS
+\begin_inset Quotes erd
+\end_inset
+
+) for 3D surfaces homotopic to a sphere.
+\end_layout
+
+\begin_layout Subsection
+Level sets
+\end_layout
+
+\begin_layout Standard
+Some formalisms represent shapes as the result of an equation, typically
+ the zero-crossing of a function.
+ In particular, the level-set approache uses this representation in the
+ context of image segmentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Chan2001"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
