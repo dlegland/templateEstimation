@@ -193,11 +193,49 @@ key "Grenander_Miller_1998_QAM"
 \end_inset
 
 .
+ The goal is to apply tools from shape analysis and / or template estimation
+ to study populations of wheat grains observed with 3D tomography imaging.
+ 
+\end_layout
+
+\begin_layout Standard
+We can use the definition of shape proposed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kendall_1977_AdvApplProb"
+
+\end_inset
+
+ (see also 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Dryden1998"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_layout Description
+Definition: Shape is all the geometrical information that remains when location,
+ scale and rotational effects are removed from an object.
+\end_layout
+
+\begin_layout Standard
+Note that in many cases, it is not desirable to remove the scaling effect,
+ that may be related to growth for instance.
 \end_layout
 
 \begin_layout Standard
 Useful information about registration can also be found in the documention
- of the ITK library.
+ of the ITK library 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Ibanez2003"
+
+\end_inset
+
+.
  In particular, several points need attention:
 \end_layout
 
@@ -227,12 +265,23 @@ Most works on template construction are historically based on the manual
  determination of landmarks 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "Cootes_1992_bmvc,Dryden1998"
+key "Bookstein_1991_book,Cootes_1992_bmvc"
 
 \end_inset
 
 .
- This approach suffers some drawbacks, notably the difficulty to precisely
+ A good overview is provided by the book of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Dryden1998"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This approach suffers some drawbacks, notably the difficulty to precisely
  define the landmarks, and the need to interpolate between the landmarks
  (notion of semi-landmarks).
  The landmark are most of the time manually located, making this approach
@@ -355,6 +404,11 @@ Other approaches
 \end_layout
 
 \begin_layout Standard
+Some authors consider Fourier decomposition of 2D contours, or spherical
+ harmonics for 3D surfaces homotopic to a sphere.
+\end_layout
+
+\begin_layout Standard
 The works of Basel's school consider Gaussian Models 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -364,6 +418,22 @@ key "Luthi_2017_pami"
 
 .
  A dimensionality reduction is necessary to avoid over fitting.
+\end_layout
+
+\begin_layout Section
+Applications for plant sciences
+\end_layout
+
+\begin_layout Standard
+Most applications consider (bio)medical imaging, or archeological studies.
+ Less work are related to analysis of plant organs 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Chitwood2012,Biot_2016_Dev"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Chapter
