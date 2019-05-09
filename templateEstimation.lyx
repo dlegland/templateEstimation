@@ -419,6 +419,16 @@ Currents
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Currents"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The notion of current is an extension of the work on diffeomorphisms applied
  to distributions.
  Application to distributions gives more flexibility in the sense we less
@@ -458,6 +468,16 @@ Varifolds
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Varifolds"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 A subsequent approach is based on the notion of varifold 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -469,6 +489,17 @@ key "Durrleman_2014_NeuroImage"
  The main difference is that the direction of the normals is not taken into
  account any more.
  This seems to facilitate the registration.
+\end_layout
+
+\begin_layout Section
+Statistical settings
+\end_layout
+
+\begin_layout Standard
+Another strategy consists in embedding the atlas procedure into a statistical
+ setting.
+ Using a generative model, every shape can be interpreted as the sum between
+ a deformation of the template and noise (Allassonnière et al., 2007).
 \end_layout
 
 \begin_layout Section
@@ -510,6 +541,18 @@ Shape representations
 \begin_layout Standard
 Several possibilities exist for representing shapes.
  This chapter tries to sketch a representative list.
+\end_layout
+
+\begin_layout Section
+Images
+\end_layout
+
+\begin_layout Standard
+The original data often come in the forme of 2D/3D images.
+ Original intensity information is most of the time encoded into gray levels.
+ Segmentation algorihtms may produce binaty images, or more generally label
+ maps, in which the (integer) value of the pixel/voxel corresponds to the
+ index of the structure it belongs to.
 \end_layout
 
 \begin_layout Section
@@ -576,6 +619,32 @@ It may be desirable to consider also the connectivity between the points.
 \end_layout
 
 \begin_layout Section
+Shape Complexes 
+\end_layout
+
+\begin_layout Standard
+Some authors coin the term 
+\begin_inset Quotes eld
+\end_inset
+
+shape complex
+\begin_inset Quotes erd
+\end_inset
+
+ to consider the set of all surfaces obtained after segmentation of an individua
+l subject.
+ Shape complexes can be composed of curves and surfaces.
+ Both can be modeled via varifolds (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Varifolds"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
 Other representations
 \end_layout
 
@@ -614,8 +683,8 @@ Level sets
 \begin_layout Standard
 Some formalisms represent shapes as the result of an equation, typically
  the zero-crossing of a function.
- In particular, the level-set approache uses this representation in the
- context of image segmentation 
+ In particular, the level-set approach uses this representation in the context
+ of image segmentation 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Chan2001"
