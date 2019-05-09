@@ -144,7 +144,7 @@
 \color #008000
 \end_index
 \secnumdepth 3
-\tocdepth 2
+\tocdepth 1
 \paragraph_separation indent
 \paragraph_indentation default
 \quotes_language english
@@ -327,11 +327,12 @@ Image registration
 \end_layout
 
 \begin_layout Standard
-Useful information about registration can be found in the documention of
- the ITK library 
+Image registration consists on computing the deformation that best superimpose
+ one image onto the other.
+ A large litterature exists on this topic 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "Ibanez2003"
+key "Zitova2003"
 
 \end_inset
 
@@ -352,18 +353,68 @@ the numerical scheme for solving the problem, using (mathematical) optimisation
  or minimisation of a functional.
 \end_layout
 
+\begin_layout Standard
+Useful information about registration can be found in the book of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Modersitzki2004"
+
+\end_inset
+
+, or in the documentation of the ITK library 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Ibanez2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Parametric deformations
+\end_layout
+
+\begin_layout Standard
+A first approach to reduce the complexity of the search is to consider parametri
+c transformations, that is transformations that can be completely defined
+ by a vector of parameters.
+ Several families of parametric models have been considered: polynomial,
+ poly-affine...
+\end_layout
+
+\begin_layout Standard
+A large class of methods rely on 
+\begin_inset Quotes eld
+\end_inset
+
+free-form deformations
+\begin_inset Quotes erd
+\end_inset
+
+ based on splines 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Rueckert_1999_TMI,Frangi_2002_TMI"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Large deformation diffeomorphisms
 \end_layout
 
 \begin_layout Standard
-Based on the works of Joshi, Miller, Christensen...
+Based on the works of Miller, Christensen and Joshi 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "Christensen_1996_TIP,Joshi_Miller_2000_TIP"
+key "Miller1993,Christensen_1996_TIP,Christensen1997,Joshi_Miller_2000_TIP"
 
 \end_inset
 
+.
  The theoretical background can be found in 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -375,15 +426,32 @@ key "Miller_Younes_2001_IJCV"
  
 \end_layout
 
+\begin_layout Subsection
+Image-based atlas creation
+\end_layout
+
 \begin_layout Standard
 Applications to atlas computation from collections of images: 
 \begin_inset CommandInset citation
-LatexCommand citet
-key "Avants_Gee_2004_NeuroImage"
+LatexCommand citep
+key "Avants_Gee_2004_NeuroImage,Christensen_2006_NeuroImage"
 
 \end_inset
 
+.
+ 
+\end_layout
 
+\begin_layout Standard
+Several works investigated the creation of atlas by removing the choice
+ of an explicit reference 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Geng2009"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -419,18 +487,8 @@ Currents
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Currents"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The notion of current is an extension of the work on diffeomorphisms applied
- to distributions.
+The notion of current was developed as an extension of the work on diffeomorphis
+ms applied to distributions.
  Application to distributions gives more flexibility in the sense we less
  depend on the representation of the data 
 \begin_inset CommandInset citation
@@ -465,16 +523,6 @@ Currents are an appropriate choice for representations of 3D surfaces because
 
 \begin_layout Subsubsection
 Varifolds
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Varifolds"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -582,14 +630,31 @@ key "Bookstein_1991_book,Cootes_1992_bmvc"
 \end_inset
 
 .
- For the use of landmarks as basis of a statistical shape model, 
+ At the difference of (unordered) point clouds, landmarks are associated
+ to a specific anatomic position, usually a corner or the extremity of a
+ curve.
+ To gain precision for the registration of 2D or 3D curves, semi-landmarks
+ can be determiend by equally spacing landmarks on the curve between two
+ 
+\begin_inset Quotes eld
+\end_inset
+
+real
+\begin_inset Quotes erd
+\end_inset
+
+ landmarks.
+\end_layout
+
+\begin_layout Standard
+For the use of landmarks as basis of a statistical shape model, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Cootes_1992_bmvc"
 
 \end_inset
 
- have coind the term 
+ have coined the term 
 \begin_inset Quotes eld
 \end_inset
 
@@ -616,6 +681,55 @@ It may be desirable to consider also the connectivity between the points.
  In 3D, connectivity is often represented by a set of polygonal faces, usually
  triangular.
  This results on polygonal or triangular meshes.
+\end_layout
+
+\begin_layout Section
+Currents and varifolds
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Currents"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The notion of current was developed as an extension of the work on diffeomorphis
+ms applied to distributions.
+ Currents correspond to a collection of points associated to an oriented
+ normal.
+ Typically, the points and the normal can be otbained from the centroid
+ and the normal of the faces of a (triangular ) mesh.
+ Currents are an appropriate choice for representations of 3D surfaces because
+ they inherit natural transformation properties from differential forms.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Varifolds"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A subsequent approach is based on the notion of varifold 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Durrleman_2014_NeuroImage"
+
+\end_inset
+
+.
+ The main difference is that the direction of the normals is not taken into
+ account any more.
+ This seems to facilitate the registration.
 \end_layout
 
 \begin_layout Section
