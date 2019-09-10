@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -100,6 +100,8 @@
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format pdf2
 \output_sync 0
@@ -139,6 +141,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -147,7 +150,10 @@
 \tocdepth 1
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
@@ -189,6 +195,7 @@ Bibliography notes about template estimation, in the spirit of
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Grenander_Miller_1998_QAM"
+literal "true"
 
 \end_inset
 
@@ -209,6 +216,7 @@ We can use the definition of shape proposed by
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Kendall_1977_AdvApplProb"
+literal "true"
 
 \end_inset
 
@@ -216,6 +224,7 @@ key "Kendall_1977_AdvApplProb"
 \begin_inset CommandInset citation
 LatexCommand citealp
 key "Dryden1998"
+literal "true"
 
 \end_inset
 
@@ -246,6 +255,7 @@ Most works on template construction are historically based on the manual
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Bookstein_1991_book,Cootes_1992_bmvc"
+literal "true"
 
 \end_inset
 
@@ -254,6 +264,7 @@ key "Bookstein_1991_book,Cootes_1992_bmvc"
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Cootes_1992_bmvc"
+literal "true"
 
 \end_inset
 
@@ -271,6 +282,7 @@ Point Distribution Model
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Dryden1998"
+literal "true"
 
 \end_inset
 
@@ -283,6 +295,7 @@ After alignment of the individual models, a dimensionality reduction is
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Jolliffe2002"
+literal "true"
 
 \end_inset
 
@@ -295,6 +308,7 @@ key "Jolliffe2002"
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Heimann_Meinzer_2009_MIA"
+literal "true"
 
 \end_inset
 
@@ -312,6 +326,7 @@ This approach suffers some drawbacks, notably the difficulty to precisely
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Frangi_2002_TMI"
+literal "true"
 
 \end_inset
 
@@ -333,6 +348,7 @@ Image registration consists on computing the deformation that best superimpose
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Zitova2003"
+literal "true"
 
 \end_inset
 
@@ -358,6 +374,7 @@ Useful information about registration can be found in the book of
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Modersitzki2004"
+literal "true"
 
 \end_inset
 
@@ -365,6 +382,7 @@ key "Modersitzki2004"
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Ibanez2003"
+literal "true"
 
 \end_inset
 
@@ -396,6 +414,7 @@ free-form deformations
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Rueckert_1999_TMI,Frangi_2002_TMI"
+literal "true"
 
 \end_inset
 
@@ -411,6 +430,7 @@ Based on the works of Miller, Christensen and Joshi
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Miller1993,Christensen_1996_TIP,Christensen1997,Joshi_Miller_2000_TIP"
+literal "true"
 
 \end_inset
 
@@ -419,6 +439,7 @@ key "Miller1993,Christensen_1996_TIP,Christensen1997,Joshi_Miller_2000_TIP"
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Miller_Younes_2001_IJCV"
+literal "true"
 
 \end_inset
 
@@ -435,6 +456,7 @@ Applications to atlas computation from collections of images:
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Avants_Gee_2004_NeuroImage,Christensen_2006_NeuroImage"
+literal "true"
 
 \end_inset
 
@@ -448,6 +470,7 @@ Several works investigated the creation of atlas by removing the choice
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Geng2009"
+literal "true"
 
 \end_inset
 
@@ -494,6 +517,7 @@ ms applied to distributions.
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Glaunes_2004_CVPR,Glaunes_Joshi_2006_MICCAI"
+literal "true"
 
 \end_inset
 
@@ -502,6 +526,7 @@ key "Glaunes_2004_CVPR,Glaunes_Joshi_2006_MICCAI"
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Vaillant_Glaunes_2005_IPMI"
+literal "true"
 
 \end_inset
 
@@ -510,6 +535,7 @@ key "Vaillant_Glaunes_2005_IPMI"
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Durrleman_2009_MIA"
+literal "true"
 
 \end_inset
 
@@ -530,6 +556,7 @@ A subsequent approach is based on the notion of varifold
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Durrleman_2014_NeuroImage"
+literal "true"
 
 \end_inset
 
@@ -559,6 +586,7 @@ The works of Basel's school consider Gaussian Models
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Luthi_2017_pami"
+literal "true"
 
 \end_inset
 
@@ -571,11 +599,33 @@ Applications for plant sciences
 \end_layout
 
 \begin_layout Standard
-Most applications consider (bio)medical imaging, or archeological studies.
+Most applications consider (bio)medical imaging 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Guignard_2014_ISBI"
+literal "false"
+
+\end_inset
+
+, or archeological studies.
+\end_layout
+
+\begin_layout Standard
+For plant sciences, most studies concern tracking of cell patterns over
+ plant development 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Fernandez_2010_nm"
+literal "false"
+
+\end_inset
+
+.
  Less work are related to analysis of plant organs 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Chitwood2012,Biot_2016_Dev"
+literal "true"
 
 \end_inset
 
@@ -613,7 +663,6 @@ The simplest and the most generic method to represent shapes is a set of
  Such boundary points can be extracted after image segmentation algorithms
  or using algorithms such as the Marching Cubes.
  The shapes can be called point sets, point clouds...
- 
 \end_layout
 
 \begin_layout Section
@@ -626,6 +675,7 @@ Most works on template construction are historically based on the manual
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Bookstein_1991_book,Cootes_1992_bmvc"
+literal "true"
 
 \end_inset
 
@@ -651,6 +701,7 @@ For the use of landmarks as basis of a statistical shape model,
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Cootes_1992_bmvc"
+literal "true"
 
 \end_inset
 
@@ -723,6 +774,7 @@ A subsequent approach is based on the notion of varifold
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Durrleman_2014_NeuroImage"
+literal "true"
 
 \end_inset
 
@@ -776,6 +828,7 @@ Some authors consider Fourier decomposition of 2D contours
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Kuhl_Giardina_1982_CGIP,Chitwood2012"
+literal "true"
 
 \end_inset
 
@@ -802,6 +855,7 @@ Some formalisms represent shapes as the result of an equation, typically
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Chan2001"
+literal "true"
 
 \end_inset
 
