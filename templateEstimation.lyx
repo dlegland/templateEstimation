@@ -241,6 +241,30 @@ Note that in many cases, it is not desirable to remove the scaling effect,
  that may be related to growth for instance.
 \end_layout
 
+\begin_layout Standard
+Some topic to investigate: computational anatomy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://en.wikipedia.org/wiki/Computational_anatomy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Chapter
 State of the art
 \end_layout
@@ -260,7 +284,7 @@ literal "true"
 \end_inset
 
 .
- For the use of landmarks as basis of a statistical shape model, 
+ For the use of landmarks as basis of a statistical shape models, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Cootes_1992_bmvc"
@@ -452,6 +476,18 @@ Image-based atlas creation
 \end_layout
 
 \begin_layout Standard
+Also called 
+\begin_inset Quotes eld
+\end_inset
+
+group-wise registration
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 Applications to atlas computation from collections of images: 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -499,71 +535,6 @@ In image-based registration, the metric is computed from the intensities
  we need to compute distances between points.
  If we want to remove the necessity of homology between the points, the
  questions becomes more complicated.
-\end_layout
-
-\begin_layout Subsection
-Metric for unlabeled point sets
-\end_layout
-
-\begin_layout Subsubsection
-Currents
-\end_layout
-
-\begin_layout Standard
-The notion of current was developed as an extension of the work on diffeomorphis
-ms applied to distributions.
- Application to distributions gives more flexibility in the sense we less
- depend on the representation of the data 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Glaunes_2004_CVPR,Glaunes_Joshi_2006_MICCAI"
-literal "true"
-
-\end_inset
-
-.
- Theoretical framework is provided by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Vaillant_Glaunes_2005_IPMI"
-literal "true"
-
-\end_inset
-
-.
- Recent advances are provided by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Durrleman_2009_MIA"
-literal "true"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Currents are an appropriate choice for representations of 3D surfaces because
- they inherit natural transformation properties from differential forms.
-\end_layout
-
-\begin_layout Subsubsection
-Varifolds
-\end_layout
-
-\begin_layout Standard
-A subsequent approach is based on the notion of varifold 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Durrleman_2014_NeuroImage"
-literal "true"
-
-\end_inset
-
-.
- The main difference is that the direction of the normals is not taken into
- account any more.
- This seems to facilitate the registration.
 \end_layout
 
 \begin_layout Section
@@ -633,12 +604,377 @@ literal "true"
 \end_layout
 
 \begin_layout Chapter
+Mathematical background
+\end_layout
+
+\begin_layout Standard
+This chapter aims at gathering the different formalisms by keeping a unified
+ set of notations.
+ 
+\end_layout
+
+\begin_layout Section
+Notations
+\end_layout
+
+\begin_layout Standard
+Let us consider the euclidean space 
+\begin_inset Formula $\mathbb{R}^{d}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Some notations:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $\phi:\mathbb{R}^{d}\rightarrow\mathbb{R}^{d}$
+\end_inset
+
+ a transformation (I use transform and deformation as synonyms).
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $\Phi:\mathbb{R}^{d}\rightarrow\mathbb{R}^{d}$
+\end_inset
+
+ a diffeomorphism
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $R$
+\end_inset
+
+ the reference object 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Formula $T$
+\end_inset
+
+ the template
+\end_layout
+
+\begin_layout Section
+Subject to subject registration
+\end_layout
+
+\begin_layout Standard
+We want to compute a transform that will 
+\begin_inset Quotes eld
+\end_inset
+
+map
+\begin_inset Quotes erd
+\end_inset
+
+ a given shape onto another.
+ In the 
+\series bold
+subject to subject registration
+\series default
+, one considers a reference shape 
+\begin_inset Formula $R$
+\end_inset
+
+, and a template shape 
+\begin_inset Formula $T$
+\end_inset
+
+ to be transformed, and we look for the transform 
+\begin_inset Formula $\phi$
+\end_inset
+
+ that will project the template onto reference.
+ Both the reference and the template shapes may be represented by either
+ a mesh or an image, but I will restrict to the case of the meshes.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+One considers transformations from 
+\begin_inset Formula $\mathbb{R}^{d}$
+\end_inset
+
+ into 
+\begin_inset Formula $\mathbb{R}^{d}$
+\end_inset
+
+, such that:
+\begin_inset Formula 
+\begin{align*}
+\phi: & \mathbb{R}^{d}\rightarrow\mathbb{R}^{d}\\
+ & \boldsymbol{x}\rightarrow\boldsymbol{y}=\phi(\boldsymbol{x})
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\phi\star T$
+\end_inset
+
+ be the result of the transformation 
+\begin_inset Formula $\phi$
+\end_inset
+
+ applied to the object 
+\begin_inset Formula $T$
+\end_inset
+
+ (notation from 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Bone_2018_MICCAI"
+literal "false"
+
+\end_inset
+
+).
+ For meshes, the transformation acts by direct application to the coordinates
+ of the vertices: 
+\begin_inset Formula $\phi\star T=\phi(T)$
+\end_inset
+
+.
+ For images, the reverse transformation is usually computed, allowing to
+ compute deformed image:
+\begin_inset Formula 
+\begin{align}
+\phi\star I & =I\circ\phi^{-1}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The quality of the registration is evaluated through a 
+\series bold
+metric 
+\series default
+
+\begin_inset Formula $\mathcal{D}(R,\phi\star T)$
+\end_inset
+
+ that measures the dissimilarity between the transformed shape and the reference
+ shape.
+ Typical metrics for shapes represented by meshes are discussed in section
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Metrics-For-Meshes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The computation of the transformation is usually performed through a 
+\series bold
+variational approach
+\series default
+, that consists in minimizing a functional:
+\begin_inset Formula 
+\begin{align}
+\mathcal{J} & =\mathcal{D}(R,\phi\star T)+\mathcal{R}(\phi)
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\varphi\star T$
+\end_inset
+
+ is the result of the transformation 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ applied to the object 
+\begin_inset Formula $T$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ is a metric that compares the reference with the transformed template,
+ and 
+\begin_inset Formula $\mathcal{R}$
+\end_inset
+
+ a regularization function that penalizes unreasonable transformation.
+ The optimal transformation is obtained by:
+\begin_inset Formula 
+\begin{equation}
+\phi^{\star}=\stackrel[\phi]{}{\arg\min}\mathcal{D}(R,\phi\star T)+\mathcal{R}(\phi)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One usually considers parameterized transformations 
+\begin_inset Formula $\phi_{\boldsymbol{\theta}}$
+\end_inset
+
+, where 
+\begin_inset Formula $\boldsymbol{\theta}$
+\end_inset
+
+ is a vector of parameters that completely determines the transformation.
+ The minimization approach can be rewritten as:
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\theta}^{\star}=\stackrel[\boldsymbol{\theta}]{}{\arg\min}\mathcal{D}(R,\phi_{\boldsymbol{\theta}}\star T)+\mathcal{R}(\phi_{\boldsymbol{\theta}})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This formulation allows for using classical 
+\series bold
+numerical optimization 
+\series default
+algorithms such as gradient descent or linear search.
+\end_layout
+
+\begin_layout Section
+Group-wise registration
+\end_layout
+
+\begin_layout Standard
+The aim of group-wise registration is to identify the reference shape 
+\begin_inset Formula $S_{ref}$
+\end_inset
+
+ from a collection of individual shapes 
+\begin_inset Formula $S_{i}$
+\end_inset
+
+, each one representing an instance of a global population.
+ [notion of 
+\begin_inset Quotes eld
+\end_inset
+
+Frechet mean
+\begin_inset Quotes erd
+\end_inset
+
+].
+ Every shape 
+\begin_inset Formula $S_{i}$
+\end_inset
+
+ is modelled as a deformation 
+\begin_inset Formula $\phi_{i}$
+\end_inset
+
+ (i.e.
+ a diffeomorphism) of 
+\begin_inset Formula $S_{ref}$
+\end_inset
+
+, plus an eventual residual 
+\begin_inset Formula $\epsilon_{i}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+S_{i}=\phi_{i}\star S_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The minimisation can be rewritten:
+\begin_inset Formula 
+\begin{equation}
+\left\{ \boldsymbol{\theta}_{i}^{\star}\right\} =\stackrel[\left\{ \boldsymbol{\theta}_{i}\right\} ]{}{\arg\min}\sum_{i}\left[\mathcal{D}(S_{ref},\phi_{\boldsymbol{\theta}_{i}}\star S_{i})+\mathcal{R}(\phi_{\boldsymbol{\theta}_{i}})\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This equation can be simplified for groupwise image registration, by noting
+ that 
+\begin_inset Formula $S_{ref}$
+\end_inset
+
+ is the average of the 
+\begin_inset Formula $n$
+\end_inset
+
+ image instances 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Joshi2004"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Geodesic regression
+\end_layout
+
+\begin_layout Standard
+To be investigated.
+\end_layout
+
+\begin_layout Chapter
 Shape representations
 \end_layout
 
 \begin_layout Standard
 Several possibilities exist for representing shapes.
  This chapter tries to sketch a representative list.
+\end_layout
+
+\begin_layout Standard
+(i am not sure this chapter is really necessary...
+ I keep it for the moment).
 \end_layout
 
 \begin_layout Section
@@ -860,6 +1196,294 @@ literal "true"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Chapter
+Representation of deformations
+\end_layout
+
+\begin_layout Standard
+One can distinguish between 
+\begin_inset Quotes eld
+\end_inset
+
+global
+\begin_inset Quotes erd
+\end_inset
+
+ models (affine, polynomial), and 
+\begin_inset Quotes eld
+\end_inset
+
+local
+\begin_inset Quotes erd
+\end_inset
+
+ models, for which parameters have an impact only for a limited region.
+ 
+\end_layout
+
+\begin_layout Section
+Global models
+\end_layout
+
+\begin_layout Standard
+Concerns mostly affine transformations, often used to pre-align the shapes
+ prior to the registration.
+ 
+\end_layout
+
+\begin_layout Standard
+Affine transformations can be represented by a 
+\begin_inset Formula $(d+1)\times(d+1)$
+\end_inset
+
+ matrix, resulting in 6 parameters for 2D transformations and 12 parameters
+ for 3D transformations.
+ More specialized affine transformations can be represented with fewer parameter
+s: motions, translations...
+\end_layout
+
+\begin_layout Standard
+Polynomial transformations may also be considered.
+ They allows for larger deformations to be modelled, but they often generate
+ irrealistic deformations.
+\end_layout
+
+\begin_layout Section
+Elastic models
+\end_layout
+
+\begin_layout Standard
+Elastic models consider the computation of the displacement field associated
+ to each point:
+\begin_inset Formula 
+\begin{equation}
+\phi(\mathbf{x})=\mathbf{x}+\mathbf{u}(\mathbf{x})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Elastic models are often parameterized, using BSpline kernels, or Fourier
+ transformation.
+\end_layout
+
+\begin_layout Subsection
+BSplines
+\end_layout
+
+\begin_layout Section
+Large deformations diffeomorphisms
+\end_layout
+
+\begin_layout Standard
+[maybe introduce diffeomorphisms?]
+\end_layout
+
+\begin_layout Standard
+Somewhat more complicated than vector fields, but provides more generality
+ (Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Difference-Linear-Geodesic-Deformation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Consider flows of diffeomorphisms.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/Avants2004_Fig07.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Difference-Linear-Geodesic-Deformation"
+
+\end_inset
+
+Difference between linear elastic deformation and geodesic flow deformation
+ (from 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Avants_Gee_2004_NeuroImage"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Flows were first introduced for large deformations in image matching 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Christensen_1996_TIP,Christensen1997"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Chapter
+Metrics
+\end_layout
+
+\begin_layout Standard
+This chapter will focus on mesh-to-mesh metrics, and introduces the current
+ metric.
+\end_layout
+
+\begin_layout Section
+Metrics for meshes
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Metrics-For-Meshes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Typical metrics for shapes represented by meshes comprise the sum of the
+ distances of each point to the closest vertex or to the closest face, or
+ more generic metrics based on currents.
+\end_layout
+
+\begin_layout Subsection
+Volume-based metric
+\end_layout
+
+\begin_layout Standard
+Examples: Hausdorf metric, Dice coefficient...
+\end_layout
+
+\begin_layout Standard
+Such metrics are usually better suited fort comparing binary or label images.
+ Also, they usually do not take into account the distance between boundaries.
+\end_layout
+
+\begin_layout Subsection
+Vertex-based metrics
+\end_layout
+
+\begin_layout Standard
+Ex: vertex to nearest neighbor, vertex to nearest face...
+ Idea : compute the sum over the vertices of the (squared) distance to nearest
+ element of the other mesh or point cloud.
+\end_layout
+
+\begin_layout Subsection
+Currents
+\end_layout
+
+\begin_layout Standard
+The notion of current was developed as an extension of the work on diffeomorphis
+ms applied to distributions.
+ Application to distributions gives more flexibility in the sense we less
+ depend on the representation of the data 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Glaunes_2004_CVPR,Glaunes_Joshi_2006_MICCAI"
+literal "true"
+
+\end_inset
+
+.
+ Theoretical framework is provided by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Vaillant_Glaunes_2005_IPMI"
+literal "true"
+
+\end_inset
+
+.
+ Recent advances are provided by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Durrleman_2009_MIA"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Currents are an appropriate choice for representations of 3D surfaces because
+ they inherit natural transformation properties from differential forms.
+\end_layout
+
+\begin_layout Subsection
+Varifolds
+\end_layout
+
+\begin_layout Standard
+A subsequent approach is based on the notion of varifold 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Durrleman_2014_NeuroImage"
+literal "true"
+
+\end_inset
+
+.
+ The main difference is that the direction of the normals is not taken into
+ account any more.
+ This seems to facilitate the registration.
 \end_layout
 
 \begin_layout Standard
