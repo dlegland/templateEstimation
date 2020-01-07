@@ -467,8 +467,15 @@ literal "true"
 
 \end_inset
 
+, see also 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "Trouve_1998_IJCV,Dupuis_1998_QAM"
+literal "false"
+
+\end_inset
+
 .
- 
 \end_layout
 
 \begin_layout Subsection
@@ -522,8 +529,8 @@ The large deformation diffeomorphism framework originally devoted to atlas
  creation using 2D/3D grayscale images was later extended to manage geometric
  models such as point clouds or meshes.
  A critical point is to compute a distance between two objects, in particular
- for minimizing the distance between a template and an individual shape
- after transformation.
+ for minimizing the distance between a reference shape and an individual
+ shape after transformation.
 \end_layout
 
 \begin_layout Standard
@@ -545,7 +552,15 @@ Statistical settings
 Another strategy consists in embedding the atlas procedure into a statistical
  setting.
  Using a generative model, every shape can be interpreted as the sum between
- a deformation of the template and noise (Allassonnière et al., 2007).
+ a deformation of the template and noise (See for example 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "Allassonniere_2013_AMBP"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Section
@@ -656,10 +671,18 @@ Some notations:
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
+\begin_inset Formula $S_{i}$
+\end_inset
+
+,
+\begin_inset Formula $S$
+\end_inset
+
+,
 \begin_inset Formula $T$
 \end_inset
 
- the template
+ an individual subject, or template
 \end_layout
 
 \begin_layout Section
@@ -960,7 +983,7 @@ Geodesic regression
 \end_layout
 
 \begin_layout Standard
-To be investigated.
+To be investigated, but after group-wise registration.
 \end_layout
 
 \begin_layout Chapter
@@ -1240,14 +1263,41 @@ Affine transformations can be represented by a
 
  matrix, resulting in 6 parameters for 2D transformations and 12 parameters
  for 3D transformations.
- More specialized affine transformations can be represented with fewer parameter
-s: motions, translations...
+\begin_inset Formula 
+\begin{align*}
+\left(\begin{array}{c}
+x'\\
+y'\\
+z'\\
+1
+\end{array}\right) & =\left(\begin{array}{cccc}
+m_{00} & m_{01} & m_{02} & m_{03}\\
+m_{10} & m_{11} & m_{12} & m_{13}\\
+m_{20} & m_{21} & m_{22} & m_{23}\\
+0 & 0 & 0 & 1
+\end{array}\right)\cdot\left(\begin{array}{c}
+x\\
+y\\
+z\\
+1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+More specialized affine transformations can be represented with fewer parameters
+: motions, translations...
 \end_layout
 
 \begin_layout Standard
 Polynomial transformations may also be considered.
  They allows for larger deformations to be modelled, but they often generate
  irrealistic deformations.
+ 
 \end_layout
 
 \begin_layout Section
@@ -1270,10 +1320,175 @@ Elastic models consider the computation of the displacement field associated
 \begin_layout Standard
 Elastic models are often parameterized, using BSpline kernels, or Fourier
  transformation.
+ They can also be represented by a grid of local deformations computed for
+ each pixel/voxel.
+ In that case, regularization is necesasry to avoid degenerated transformation.
 \end_layout
 
 \begin_layout Subsection
 BSplines
+\end_layout
+
+\begin_layout Standard
+BSpline is a popular framework for modelling deformation fields.
+ An interesting property is that the change of value of a parameter has
+ an impact only for a limited region of the space.
+\end_layout
+
+\begin_layout Standard
+A convenient reference about BSpline deformation is 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Rueckert_1999_TMI"
+literal "false"
+
+\end_inset
+
+, in which they use the term 
+\begin_inset Quotes eld
+\end_inset
+
+free-form deformation
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+BSpline registration considers a grid of 
+\begin_inset Formula $n_{x}\times n_{y}$
+\end_inset
+
+ control points.
+ The control points are denoted by 
+\begin_inset Formula $\boldsymbol{c}_{i,j}=(c_{i,j,1},c_{i,j,2})$
+\end_inset
+
+.
+ Each control point is associated to a displacement vector 
+\begin_inset Formula $\boldsymbol{v}_{i,j}=(v_{i,j,1},v_{i,j,2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/BSpline_Interpolation_2D.png
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BSpline-Interpolation-2D"
+
+\end_inset
+
+Interpolation within an image using cubic BSpline.
+ For the considered point (black cross), 4 grid vertices are taken into
+ account in each direction for evaluating the deformation.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The local deformation 
+\begin_inset Formula $\boldsymbol{u}(\boldsymbol{x})$
+\end_inset
+
+ can be expressed by:
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{u}(\boldsymbol{x}) & =\sum_{l=0}^{3}\sum_{m=0}^{3}B_{l}(u)B_{m}(v)\boldsymbol{v}_{i+l,j+m}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $l$
+\end_inset
+
+ and 
+\begin_inset Formula $m$
+\end_inset
+
+ are indices of the tile within the 
+\begin_inset Formula $4\times4$
+\end_inset
+
+ configuration, 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+ are normalised coordinates within the current tile, and 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are the indices of the top-left control point within the grid.
+\end_layout
+
+\begin_layout Standard
+For 3D interpolation, the deformation is expressed by adding a term in the
+ product:
+\begin_inset Formula 
+\begin{align}
+\boldsymbol{u}(\boldsymbol{x}) & =\sum_{l=0}^{3}\sum_{m=0}^{3}\sum_{n=0}^{3}B_{l}(u)B_{m}(v)B_{n}(w)\boldsymbol{v}_{i+l,j+m,k+n}
+\end{align}
+
+\end_inset
+
+The basis functions 
+\begin_inset Formula $B_{i}(u)$
+\end_inset
+
+ are defined by:
+\begin_inset Formula 
+\begin{align*}
+B_{0}(u) & =(1-u^{3})/6\\
+B_{1}(u) & =(3u^{3}-6u^{2}+4)/6\\
+B_{2}(u) & =(-3u^{3}+3u^{2}+3u+1)/6\\
+B_{3}(u) & =u^{3}/6
+\end{align*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1281,12 +1496,25 @@ Large deformations diffeomorphisms
 \end_layout
 
 \begin_layout Standard
-[maybe introduce diffeomorphisms?]
+The main drawback of local deformation models based on displacement fields
+ is their non-invertibility, as soon as the magnitude of 
+\begin_inset Formula $\boldsymbol{u}$
+\end_inset
+
+ or its Jacobian is too large 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Durrleman_2014_NeuroImage"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Somewhat more complicated than vector fields, but provides more generality
- (Fig.
+Large deformation diffeomorphism framework is somewhat more complicated
+ than vector fields, but provides more generality (Fig.
 \begin_inset space ~
 \end_inset
 
@@ -1301,7 +1529,77 @@ noprefix "false"
 \end_inset
 
 ).
- Consider flows of diffeomorphisms.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Subsection
+Diffeomorphisms
+\end_layout
+
+\begin_layout Plain Layout
+(from 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Avants_Gee_2004_NeuroImage"
+literal "false"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+The diffeomorphism group 
+\begin_inset Formula $\mathcal{G}$
+\end_inset
+
+ transforms the underlying space 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ through a map 
+\begin_inset Formula $\phi$
+\end_inset
+
+ with the following properties:
+\begin_inset Formula 
+\begin{align*}
+(1) & \phi(\boldsymbol{\text{Id}},\Omega)=\Omega\,\text{where Id is identity in}\mathcal{G}\\
+(2) & \phi(\boldsymbol{g},\phi(\boldsymbol{h},\Omega))=\phi(\boldsymbol{g}\circ\boldsymbol{h},\Omega),\forall\boldsymbol{g},\boldsymbol{h}\in\mathcal{G}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+(note: need to make notations consistent)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Flows for diffeomorphisms
+\end_layout
+
+\begin_layout Standard
+Flows were first introduced for large deformations in image matching 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Christensen_1996_TIP,Christensen1997"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1309,10 +1607,6 @@ noprefix "false"
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \align center
@@ -1352,9 +1646,27 @@ literal "false"
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
+
+\begin_layout Standard
+The idea is to consider an instantaneous velocity field 
+\begin_inset Formula $\boldsymbol{v}$
+\end_inset
+
+ instead of a displacement field.
+ To this end, one makes the velocity field depend on a time 
+\begin_inset Formula $t\in[0;1]$
+\end_inset
+
+ that plays the role of a variable of integration.
+ 
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{v}(\boldsymbol{x},t) & =\frac{d\boldsymbol{x}(t)}{dt},\boldsymbol{x}(0)=\boldsymbol{x}_{0}
+\end{align*}
 
 \end_inset
 
@@ -1362,15 +1674,23 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Flows were first introduced for large deformations in image matching 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Christensen_1996_TIP,Christensen1997"
-literal "false"
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{v}(\boldsymbol{x},t) & =\frac{d\boldsymbol{u}(\boldsymbol{x},t)}{dt}
+\end{align*}
 
 \end_inset
 
-.
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -1380,6 +1700,46 @@ Metrics
 \begin_layout Standard
 This chapter will focus on mesh-to-mesh metrics, and introduces the current
  metric.
+\end_layout
+
+\begin_layout Section
+Metrics for images
+\end_layout
+
+\begin_layout Standard
+Image metrics are based on image values.
+ The most common one is the SSD metric.
+ Mutual-information based metrics are used for comparing images obtained
+ from different acquisition devices.
+ In the following, the two images 
+\begin_inset Formula $I_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{S}$
+\end_inset
+
+ correspond to the (fixed) reference image and the (moving) subject/template
+ image.
+\end_layout
+
+\begin_layout Subsection
+Sum of squared differences
+\end_layout
+
+\begin_layout Standard
+The Sum of squared differences (SSD) metric consists in integrating over
+ the domain of definition the difference between the intensities of the
+ two images:
+\begin_inset Formula 
+\begin{align*}
+\mathcal{D}^{\mbox{SSD}}[I_{R},I_{S}] & =\frac{1}{2}\left\Vert I_{S}-I_{R}\right\Vert _{L_{2}}^{2}\\
+ & =\frac{1}{2}\int_{\Omega}\left(I_{S}(\boldsymbol{x})-I_{R}(\boldsymbol{x})\right)^{2}d\boldsymbol{x}
+\end{align*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1421,8 +1781,12 @@ Vertex-based metrics
 
 \begin_layout Standard
 Ex: vertex to nearest neighbor, vertex to nearest face...
- Idea : compute the sum over the vertices of the (squared) distance to nearest
+ Idea: compute the sum over the vertices of the (squared) distance to nearest
  element of the other mesh or point cloud.
+\end_layout
+
+\begin_layout Section
+Currents
 \end_layout
 
 \begin_layout Subsection
@@ -1467,6 +1831,28 @@ Currents are an appropriate choice for representations of 3D surfaces because
  they inherit natural transformation properties from differential forms.
 \end_layout
 
+\begin_layout Standard
+The idea is to characterize shapes via vector fields, which are used to
+ probe them.
+ Given a vector field 
+\begin_inset Formula $\boldsymbol{v}(\boldsymbol{x})$
+\end_inset
+
+, a 3D surface 
+\begin_inset Formula $S$
+\end_inset
+
+ integrates the vector field in the following way:
+\begin_inset Formula 
+\begin{align}
+S(\boldsymbol{v}) & =\int_{S}\boldsymbol{v}(\boldsymbol{x})^{t}\cdot\boldsymbol{n}(\boldsymbol{x})d\boldsymbol{x}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Varifolds
 \end_layout
@@ -1484,6 +1870,10 @@ literal "true"
  The main difference is that the direction of the normals is not taken into
  account any more.
  This seems to facilitate the registration.
+\end_layout
+
+\begin_layout Standard
+TODO: add regularization documentation.
 \end_layout
 
 \begin_layout Standard
